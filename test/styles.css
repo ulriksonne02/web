@@ -1,0 +1,46 @@
+body {
+  /*padding-left: 50px;
+  padding-top: 50px;*/
+  background-color: black;
+  color: yellow;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+  color: yellow;
+}
+
+button {
+  background-color: black;
+  color: white;
+  border-color: yellow;
+}
+
+section {
+  flex-direction: inline;
+  color: white;
+  background-color: grey;
+}
+
+P {
+  border: 20px;
+  width: 400px;
+  padding-left: 50px;
+  color: white;
+}
+
+table {
+  color: yellow;
+  background-color: black;
+  border-color: yellow;
+  border: 1px;
+  border-style: solid;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px dashed yellow;
+  border-color: yellow;
+  padding: 8px 10px;
+}

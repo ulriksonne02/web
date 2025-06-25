@@ -1,0 +1,29 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3867246, 2020-12-16T11:57:38-0500
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: Proto Sans 56 by ABSTRKT
+ * URL: https://www.myfonts.com/collections/abstrkt-foundry
+
+ * Webfont: Proto Sans 35 by ABSTRKT
+ * URL: https://www.myfonts.com/collections/abstrkt-foundry
+ 
+ * © 2025 MyFonts Inc. */
+
+
+  
+@font-face {
+  font-family: "ProtoSans56";
+  src: url('webFonts/ProtoSans56/font.woff2') format('woff2'), url('webFonts/ProtoSans56/font.woff') format('woff');
+}
+@font-face {
+  font-family: "ProtoSans35";
+  src: url('webFonts/ProtoSans35/font.woff2') format('woff2'), url('webFonts/ProtoSans35/font.woff') format('woff');
+}
+
