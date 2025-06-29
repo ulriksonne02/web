@@ -17,6 +17,10 @@ body {
   font-size: 1.45em;
 }
 
+li.article {
+    text-align: start;
+}
+
 img.logo {
   margin-bottom: 0px;
   padding-bottom: 0px;
@@ -116,11 +120,11 @@ button.menu {
   font-size: small;
   display: table-row;
 
-  padding-top: 0.2em;
+  padding-top: 5px;
   padding-bottom: 0.0em;
   /*padding-left: 50px;*/
-  padding-left: 0.6em;
-  padding-right: 0.6em;
+  padding-left: 8px;
+  padding-right: 8px;
 
   margin-left: 10px;
   margin-right: 10px;
@@ -166,6 +170,34 @@ button.menu2 {
   color: yellow;
 }
 
+button.menu3 {
+  font-family: ProtoSans56;
+  font-size: small;
+  display: table-row;
+
+  padding-top: 0.2em;
+  padding-bottom: 0.0em;
+  /*padding-left: 50px;*/
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+
+  margin-left: 10px;
+  margin-right: 10px;
+  /*margin-bottom: 0.4em;*/
+
+  border-left-width: 0.15em;
+  border-right-width: 0.15em;
+  border-top-width: 0.15em;
+  border-bottom-width: 0.0em;
+
+  border-top-right-radius: 0em;
+  border-bottom-left-radius: 0em;
+
+  border-style: solid;
+  background-color: black;
+  border-color: yellow;
+  color: yellow;
+}
 button:hover {
   background-color: yellow;
   color: black;
