@@ -5,6 +5,18 @@ body {
   color: yellow;
   font-family: 'Courier New', Courier, monospace;
   margin: 0px;
+  
+}
+
+div.article {
+  display: inline-block;
+  width: 40em;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+article {
+
 }
 
 .ProtoSans56 {
@@ -22,12 +34,13 @@ li.article {
 }
 
 img.logo {
-  margin-bottom: 0px;
+  /*margin-bottom: -3px;*/
   padding-bottom: 0px;
-  display: flex;
+  display: inline-block;
+  position: relative;
 }
 
-div.logo {
+.logo {
   font-family: ProtoSans56;
 }
 .frame {
@@ -80,7 +93,7 @@ ul.menu {
   list-style: none;
   display: inline-block;
   padding: 0px 0px 0px 0px;
-  margin-bottom: 0px;
+  margin-bottom: -3px;
 }
 
 ul.pad {
@@ -103,9 +116,13 @@ li.left_pad {
 }
 
 li.menu {
-  display: inline-block;
+  display: inline-flex;
   margin: 0px;
   padding: 0px;
+}
+
+li.menu text {
+  position: relative;
 }
 
 li.menu:first-child {
@@ -206,8 +223,7 @@ button:hover {
 
 
 div.top_pad {
-  display: flex;
-  flex-direction: flex;
+  display: inline-block;
   padding-top: 0px;
   border-bottom: 5px;
   border-top: 0px;
@@ -216,6 +232,9 @@ div.top_pad {
   margin: 0px;
   border-color: yellow;
   border-style: solid;
+}
+
+header {
 }
 
 div.left_pad {
