@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'No 5';
+    src: local('No 5 Medium'), local('No-5-Medium'),
+        url('No5-Medium.woff2') format('woff2'),
+        url('No5-Medium.woff') format('woff'),
+        url('No5-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }

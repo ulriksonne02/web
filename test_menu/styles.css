@@ -3,30 +3,58 @@ body {
   padding-top: 50px;*/
   background-color: black;
   color: yellow;
-  font-family: 'Courier New', Courier, monospace;
-  margin: 0px;
-  
+  /*font-family: 'Univers LT Std Extra Black Extended', monospace;*/
+  /*font-family: 'New Alphabet', Courier, monospace;*/
+  font-family: 'sans-serif', monospace;
+  /*font-family: 'Helvetica', Courier, monospace;*/
+  font-weight: normal;
+  font-style: normal;
+  font-size: 12pt;
+  /*width: 800px;*/
+  border-color: yellow;
+  border-width: 0px;
+  border-style: solid;
+  max-width: 600px;
+  margin: auto;
+}
+
+hr {
+color: yellow;
+style: dashed;
 }
 
 div.article {
-  display: inline-block;
-  width: 40em;
-  margin-left: 10%;
-  margin-right: 10%;
+font-family: 'Univers LT Std', Courier, monospace;
+  /*font-family: 'New Alphabet', Courier, monospace;*/
+  /*font-family: 'Courier New','Univers LT Std', Courier, monospace;*/
+  font-style: normal;
+  
+  font-size: 12pt;
+  font-weight: normal;
+  line-height: normal;
+  border-right-width: 0.1em;
+  border-left-width: 0.1em;
+  border-top-width: 5px;
+  border-bottom-width: 0.1em;
+  
+  border-color: yellow;
+  border-style: solid;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-top: 10px;
 }
 
 article {
-
+	line-height: auto;
 }
 
 .ProtoSans56 {
-	font-family: ProtoSans56;
-  font-size: 1.45em;
+font-family: ProtoSans56;
 }
 
 .ProtoSans35 {
-	font-family: ProtoSans35;
-  font-size: 1.45em;
+font-family: ProtoSans35;
 }
 
 li.article {
@@ -34,28 +62,45 @@ li.article {
 }
 
 img.logo {
-  /*margin-bottom: -3px;*/
   padding-bottom: 0px;
   display: inline-block;
   position: relative;
+  max-width: auto;
 }
 
-.logo {
-  font-family: ProtoSans56;
+article img, video{
+max-width: 100%;
+height: auto;
+display: grid;
+justify-content: center;
+align-items: center;     
 }
+
+a.logo {
+  font-family: ProtoSans56;
+  font-style: normal;
+  font-size: 2em;
+  color: yellow;
+}
+
+header a:link, a:visited {
+  text-decoration: none;
+}
+
 .frame {
   border-width: 1px;
   border-color: yellow;
   border-style: dashed;
 }
 
-h1 {
+article h1 {
   color: yellow;
+  font-weight: bold;
+  font-size: 2em;
 }
 
 button {
   background-color: black;
-  
   font: 'Courier New';
 }
 
@@ -66,13 +111,30 @@ section {
 }
 
 P {
-  /*padding-left: 1em;*/
-  /*margin-left: 1em;*/
-
+  margin: 0 0 0 0;
+  padding: 10px 0 0 0;
   color: yellow;
   background-color: black;
 }
 
+P.caption {
+display: grid;
+font-family: 'Univers LT std', Courier, monospace;
+font-size: 10pt;
+font-weight: 300;
+font-style: italic;
+margin-top: 0em;
+padding-top: 0em;
+}
+
+P.caption text {
+border-color: yellow;
+border-style: solid;
+border-bottom: 1px;
+}
+
+
+}
 table {
   color: yellow;
   background-color: black;
@@ -91,9 +153,9 @@ td {
 
 ul.menu {
   list-style: none;
-  display: inline-block;
+  display: inline-flex;
   padding: 0px 0px 0px 0px;
-  margin-bottom: -3px;
+  margin: 0px 0px 0px 0px;
 }
 
 ul.pad {
@@ -126,77 +188,23 @@ li.menu text {
 }
 
 li.menu:first-child {
-  padding-left: 1em;
+  padding-left: 0em;
   padding-bottom: 0em;
   margin-bottom:  0em;
 }
 
-
-button.menu {
+header button {
   font-family: ProtoSans56;
   font-size: small;
-  display: table-row;
+  /*display: table-row;*/
+  height: 1.75em;
+  width: auto;
 
-  padding-top: 5px;
-  padding-bottom: 0.0em;
+  /*padding-top: 5px;*/
+  padding-bottom: 0em;
   /*padding-left: 50px;*/
   padding-left: 8px;
   padding-right: 8px;
-
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 0.4em;
-
-  border-left-width: 0.15em;
-  border-right-width: 0.15em;
-  border-top-width: 0.15em;
-  border-bottom-width: 0.0em;
-
-  border-top-right-radius: 0em;
-  border-bottom-left-radius: 0em;
-
-  border-style: solid;
-  background-color: black;
-  border-color: yellow;
-  color: yellow;
-}
-
-button.menu2 {
-  font-family: ProtoSans56;
-  font-size: small;
-  display: table-row;
-  padding-top: 2px;
-  padding-bottom: 0px;
-  padding-left: 50px;
-  padding-right: 7px;
-
-  margin-left: 10px;
-  margin-right: 10px;
-
-  margin-bottom: 0.0em;
-
-  border-left-width: 0.1em;
-  border-right-width: 1em;
-  border-top-width: 0.25em;
-  border-bottom-width: 0.0em;
-
-  border-top-right-radius: 0.5em;
-  border-bottom-left-radius: 0em;
-  border-color: yellow;
-  border-style: solid;
-  color: yellow;
-}
-
-button.menu3 {
-  font-family: ProtoSans56;
-  font-size: small;
-  display: table-row;
-
-  padding-top: 0.2em;
-  padding-bottom: 0.0em;
-  /*padding-left: 50px;*/
-  padding-left: 0.6em;
-  padding-right: 0.6em;
 
   margin-left: 10px;
   margin-right: 10px;
@@ -215,26 +223,43 @@ button.menu3 {
   border-color: yellow;
   color: yellow;
 }
-button:hover {
+
+header button:hover {
   background-color: yellow;
   color: black;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 
 div.top_pad {
-  display: inline-block;
-  padding-top: 0px;
-  border-bottom: 5px;
+  display: block;
+  padding-top: 0px;  
+  border-bottom: 0px;
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
-  margin: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
   border-color: yellow;
   border-style: solid;
+  
+}
+
+header p{
+font-family: 'Univers LT Std', Courier, monospace;
+font-size: 11pt;
+font-weight: 300;
+font-style: italic;
+
+margin-bottom: 1em;
+margin-top: 0em;
 }
 
 header {
+margin-top: 1.5em;
+text-align: center;
+align-content: center;
 }
 
 div.left_pad {
@@ -254,4 +279,10 @@ div.left_pad {
   border-style: solid;  
   margin-right: 2em;
   /*padding-bottom: 100px;*/
+}
+
+footer {
+margin-top: 3em;
+margin-bottom: 3em;
+text-align: center;
 }

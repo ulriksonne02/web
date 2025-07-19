@@ -1,0 +1,268 @@
+body {
+  /*padding-left: 50px;
+  padding-top: 50px;*/
+  background-color: black;
+  color: yellow;
+  /*font-family: 'Univers LT Std Extra Black Extended', monospace;*/
+  /*font-family: 'New Alphabet', Courier, monospace;*/
+
+  font-family: 'Helvetica', Courier, monospace;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 12pt;
+  margin: 0px;  
+}	
+
+div.article {
+  display: inline-block;
+  width: 40em;
+  margin-left: 10%;
+  margin-right: 10%;
+  font-family: 'Univers LT Std', monospace;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20pt;
+}
+
+article {
+	line-height: auto;
+}
+
+.ProtoSans56 {
+	font-family: ProtoSans56;
+  font-size: 1.45em;
+}
+
+.ProtoSans35 {
+	font-family: ProtoSans35;
+  font-size: 1.45em;
+}
+
+li.article {
+    text-align: start;
+}
+
+img.logo {
+  /*margin-bottom: -3px;*/
+  padding-bottom: 0px;
+  display: inline-block;
+  position: relative;
+}
+
+.logo {
+  font-family: ProtoSans56;
+}
+.frame {
+  border-width: 1px;
+  border-color: yellow;
+  border-style: dashed;
+}
+
+h1 {
+  color: yellow;
+}
+
+button {
+  background-color: black;
+  
+  font: 'Courier New';
+}
+
+section {
+  flex-direction: inline;
+  color: white;
+  background-color: grey;
+}
+
+P {
+  /*padding-left: 1em;*/
+  /*margin-left: 1em;*/
+
+  color: yellow;
+  background-color: black;
+}
+
+table {
+  color: yellow;
+  background-color: black;
+  border-color: yellow;
+  border: 1px;
+  border-style: solid;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px dashed yellow;
+  border-color: yellow;
+  padding: 8px 10px;
+}
+
+ul.menu {
+  list-style: none;
+  display: inline-flex;
+  padding: 0px 0px 0px 0px;
+  margin-bottom: -3px;
+}
+
+ul.pad {
+  list-style: none;
+  padding: 0px 0px 0px 0px;
+  display: inline-flex;
+}
+
+ul.list {
+  list-style: none;
+  display: grid;
+}
+
+li.sidelist {
+  display: inline-block;
+}
+
+li.left_pad {
+  display: list-item;
+}
+
+li.menu {
+  display: inline-flex;
+  margin: 0px;
+  padding: 0px;
+}
+
+li.menu text {
+  position: relative;
+}
+
+li.menu:first-child {
+  padding-left: 1em;
+  padding-bottom: 0em;
+  margin-bottom:  0em;
+}
+
+
+
+
+button.menu {
+  font-family: ProtoSans56;
+  font-size: small;
+  display: table-row;
+
+  padding-top: 5px;
+  padding-bottom: 0.0em;
+  /*padding-left: 50px;*/
+  padding-left: 8px;
+  padding-right: 8px;
+
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 0.4em;
+
+  border-left-width: 0.15em;
+  border-right-width: 0.15em;
+  border-top-width: 0.15em;
+  border-bottom-width: 0.0em;
+
+  border-top-right-radius: 0em;
+  border-bottom-left-radius: 0em;
+
+  border-style: solid;
+  background-color: black;
+  border-color: yellow;
+  color: yellow;
+}
+
+button.menu2 {
+  font-family: ProtoSans56;
+  font-size: small;
+  display: table-row;
+  padding-top: 2px;
+  padding-bottom: 0px;
+  padding-left: 50px;
+  padding-right: 7px;
+
+  margin-left: 10px;
+  margin-right: 10px;
+
+  margin-bottom: 0.0em;
+
+  border-left-width: 0.1em;
+  border-right-width: 1em;
+  border-top-width: 0.25em;
+  border-bottom-width: 0.0em;
+
+  border-top-right-radius: 0.5em;
+  border-bottom-left-radius: 0em;
+  border-color: yellow;
+  border-style: solid;
+  color: yellow;
+}
+
+button.menu3 {
+  font-family: ProtoSans56;
+  font-size: small;
+  display: table-row;
+
+  padding-top: 0.2em;
+  padding-bottom: 0.0em;
+  /*padding-left: 50px;*/
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+
+  margin-left: 10px;
+  margin-right: 10px;
+  /*margin-bottom: 0.4em;*/
+
+  border-left-width: 0.15em;
+  border-right-width: 0.15em;
+  border-top-width: 0.15em;
+  border-bottom-width: 0.0em;
+
+  border-top-right-radius: 0em;
+  border-bottom-left-radius: 0em;
+
+  border-style: solid;
+  background-color: black;
+  border-color: yellow;
+  color: yellow;
+}
+button:hover {
+  background-color: yellow;
+  color: black;
+  text-decoration: underline;
+}
+
+
+div.top_pad {
+  display: inline-block;
+  padding-top: 0px;
+  border-bottom: 5px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin: 0px;
+  border-color: yellow;
+  border-style: solid;
+}
+
+header {
+}
+
+div.left_pad {
+  display: flex;
+  flex-direction: column;
+  padding-top: 2px;
+  /*padding-bottom: 10%;*/
+  padding-right: 0.5em;
+  padding-left: 0em;
+  border-bottom-width: 1px;
+  border-top-width: 1px;
+  border-left-width: 0px;
+  border-right-width: 4px;
+  border-top-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  border-color: yellow;
+  border-style: solid;  
+  margin-right: 2em;
+  /*padding-bottom: 100px;*/
+}

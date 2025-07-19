@@ -1,0 +1,324 @@
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-CnObl.eot');
+    src: local('Univers LT Std 57 Condensed Oblique'), local('UniversLTStd-CnObl'),
+        url('UniversLTStd-CnObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-CnObl.woff2') format('woff2'),
+        url('UniversLTStd-CnObl.woff') format('woff'),
+        url('UniversLTStd-CnObl.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-XBlackEx.eot');
+    src: local('Univers LT Std 93 Extra Black Extended'), local('UniversLTStd-XBlackEx'),
+        url('UniversLTStd-XBlackEx.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-XBlackEx.woff2') format('woff2'),
+        url('UniversLTStd-XBlackEx.woff') format('woff'),
+        url('UniversLTStd-XBlackEx.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-Light.eot');
+    src: local('Univers LT Std 45 Light'), local('UniversLTStd-Light'),
+        url('UniversLTStd-Light.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-Light.woff2') format('woff2'),
+        url('UniversLTStd-Light.woff') format('woff'),
+        url('UniversLTStd-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-BoldCn.eot');
+    src: local('Univers LT Std 67 Bold Condensed'), local('UniversLTStd-BoldCn'),
+        url('UniversLTStd-BoldCn.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-BoldCn.woff2') format('woff2'),
+        url('UniversLTStd-BoldCn.woff') format('woff'),
+        url('UniversLTStd-BoldCn.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-Black.eot');
+    src: local('Univers LT Std 75 Black'), local('UniversLTStd-Black'),
+        url('UniversLTStd-Black.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-Black.woff2') format('woff2'),
+        url('UniversLTStd-Black.woff') format('woff'),
+        url('UniversLTStd-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-LightUltraCn.eot');
+    src: local('Univers LT Std 49 Light Ultra Condensed'), local('UniversLTStd-LightUltraCn'),
+        url('UniversLTStd-LightUltraCn.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-LightUltraCn.woff2') format('woff2'),
+        url('UniversLTStd-LightUltraCn.woff') format('woff'),
+        url('UniversLTStd-LightUltraCn.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-LightObl.eot');
+    src: local('Univers LT Std 45 Light Oblique'), local('UniversLTStd-LightObl'),
+        url('UniversLTStd-LightObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-LightObl.woff2') format('woff2'),
+        url('UniversLTStd-LightObl.woff') format('woff'),
+        url('UniversLTStd-LightObl.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-Ex.eot');
+    src: local('Univers LT Std 53 Extended'), local('UniversLTStd-Ex'),
+        url('UniversLTStd-Ex.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-Ex.woff2') format('woff2'),
+        url('UniversLTStd-Ex.woff') format('woff'),
+        url('UniversLTStd-Ex.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-BoldExObl.eot');
+    src: local('Univers LT Std 63 Bold Extended Oblique'), local('UniversLTStd-BoldExObl'),
+        url('UniversLTStd-BoldExObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-BoldExObl.woff2') format('woff2'),
+        url('UniversLTStd-BoldExObl.woff') format('woff'),
+        url('UniversLTStd-BoldExObl.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-Bold.eot');
+    src: local('Univers LT Std 65 Bold'), local('UniversLTStd-Bold'),
+        url('UniversLTStd-Bold.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-Bold.woff2') format('woff2'),
+        url('UniversLTStd-Bold.woff') format('woff'),
+        url('UniversLTStd-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-BlackObl.eot');
+    src: local('Univers LT Std 75 Black Oblique'), local('UniversLTStd-BlackObl'),
+        url('UniversLTStd-BlackObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-BlackObl.woff2') format('woff2'),
+        url('UniversLTStd-BlackObl.woff') format('woff'),
+        url('UniversLTStd-BlackObl.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-Cn.eot');
+    src: local('Univers LT Std 57 Condensed'), local('UniversLTStd-Cn'),
+        url('UniversLTStd-Cn.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-Cn.woff2') format('woff2'),
+        url('UniversLTStd-Cn.woff') format('woff'),
+        url('UniversLTStd-Cn.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-XBlack.eot');
+    src: local('Univers LT Std 85 Extra Black'), local('UniversLTStd-XBlack'),
+        url('UniversLTStd-XBlack.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-XBlack.woff2') format('woff2'),
+        url('UniversLTStd-XBlack.woff') format('woff'),
+        url('UniversLTStd-XBlack.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-BoldObl.eot');
+    src: local('Univers LT Std 65 Bold Oblique'), local('UniversLTStd-BoldObl'),
+        url('UniversLTStd-BoldObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-BoldObl.woff2') format('woff2'),
+        url('UniversLTStd-BoldObl.woff') format('woff'),
+        url('UniversLTStd-BoldObl.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-Obl.eot');
+    src: local('Univers LT Std 55 Oblique'), local('UniversLTStd-Obl'),
+        url('UniversLTStd-Obl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-Obl.woff2') format('woff2'),
+        url('UniversLTStd-Obl.woff') format('woff'),
+        url('UniversLTStd-Obl.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-BlackExObl.eot');
+    src: local('Univers LT Std 73 Black Extended Oblique'), local('UniversLTStd-BlackExObl'),
+        url('UniversLTStd-BlackExObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-BlackExObl.woff2') format('woff2'),
+        url('UniversLTStd-BlackExObl.woff') format('woff'),
+        url('UniversLTStd-BlackExObl.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-ExObl.eot');
+    src: local('Univers LT Std 53 Extended Oblique'), local('UniversLTStd-ExObl'),
+        url('UniversLTStd-ExObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-ExObl.woff2') format('woff2'),
+        url('UniversLTStd-ExObl.woff') format('woff'),
+        url('UniversLTStd-ExObl.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-LightCn.eot');
+    src: local('Univers LT Std 47 Light Condensed'), local('UniversLTStd-LightCn'),
+        url('UniversLTStd-LightCn.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-LightCn.woff2') format('woff2'),
+        url('UniversLTStd-LightCn.woff') format('woff'),
+        url('UniversLTStd-LightCn.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-XBlackExObl.eot');
+    src: local('Univers LT Std 93 Extra Black Extended Oblique'), local('UniversLTStd-XBlackExObl'),
+        url('UniversLTStd-XBlackExObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-XBlackExObl.woff2') format('woff2'),
+        url('UniversLTStd-XBlackExObl.woff') format('woff'),
+        url('UniversLTStd-XBlackExObl.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-ThinUltraCn.eot');
+    src: local('Univers LT Std 39 Thin Ultra Condensed'), local('UniversLTStd-ThinUltraCn'),
+        url('UniversLTStd-ThinUltraCn.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-ThinUltraCn.woff2') format('woff2'),
+        url('UniversLTStd-ThinUltraCn.woff') format('woff'),
+        url('UniversLTStd-ThinUltraCn.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd.eot');
+    src: local('Univers LT Std 55 Roman'), local('UniversLTStd'),
+        url('UniversLTStd.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd.woff2') format('woff2'),
+        url('UniversLTStd.woff') format('woff'),
+        url('UniversLTStd.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-LightCnObl.eot');
+    src: local('Univers LT Std 47 Light Condensed Oblique'), local('UniversLTStd-LightCnObl'),
+        url('UniversLTStd-LightCnObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-LightCnObl.woff2') format('woff2'),
+        url('UniversLTStd-LightCnObl.woff') format('woff'),
+        url('UniversLTStd-LightCnObl.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-BlackEx.eot');
+    src: local('Univers LT Std 73 Black Extended'), local('UniversLTStd-BlackEx'),
+        url('UniversLTStd-BlackEx.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-BlackEx.woff2') format('woff2'),
+        url('UniversLTStd-BlackEx.woff') format('woff'),
+        url('UniversLTStd-BlackEx.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std 59 UltraCn';
+    src: url('UniversLTStd-UltraCn.eot');
+    src: local('Univers LT Std 59 Ultra Condensed'), local('UniversLTStd-UltraCn'),
+        url('UniversLTStd-UltraCn.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-UltraCn.woff2') format('woff2'),
+        url('UniversLTStd-UltraCn.woff') format('woff'),
+        url('UniversLTStd-UltraCn.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-XBlackObl.eot');
+    src: local('Univers LT Std 85 Extra Black Oblique'), local('UniversLTStd-XBlackObl'),
+        url('UniversLTStd-XBlackObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-XBlackObl.woff2') format('woff2'),
+        url('UniversLTStd-XBlackObl.woff') format('woff'),
+        url('UniversLTStd-XBlackObl.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-BoldEx.eot');
+    src: local('Univers LT Std 63 Bold Extended'), local('UniversLTStd-BoldEx'),
+        url('UniversLTStd-BoldEx.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-BoldEx.woff2') format('woff2'),
+        url('UniversLTStd-BoldEx.woff') format('woff'),
+        url('UniversLTStd-BoldEx.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Univers LT Std';
+    src: url('UniversLTStd-BoldCnObl.eot');
+    src: local('Univers LT Std 67 Bold Condensed Oblique'), local('UniversLTStd-BoldCnObl'),
+        url('UniversLTStd-BoldCnObl.eot?#iefix') format('embedded-opentype'),
+        url('UniversLTStd-BoldCnObl.woff2') format('woff2'),
+        url('UniversLTStd-BoldCnObl.woff') format('woff'),
+        url('UniversLTStd-BoldCnObl.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
