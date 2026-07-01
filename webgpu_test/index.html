@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="../fonts/MyWebfontsKit/MyWebfontsKit.css">
+  <link rel="stylesheet" type="text/css" href="../fonts/new alphabet/new_alphabet.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebGPU Wireframe Viewer</title>
+  <style>
+    #canvas-wrap {position: relative; display: inline-block; }
+    #overlay {
+      font-family: 'ProtoSans35';
+                        
+      /*left: 10px;*/
+      color: #8a9692;
+      font-size: auto;
+      /*background: rgba(0, 0, 0, 0.55);*/
+      /*padding: 6px 10px;*/
+      border-radius: 6px;
+      display: flex;
+      /*
+      justify-content: center; 
+      align-items: center;    
+      text-align: center; 
+      margin-left: auto;
+      margin-right: auto;
+      
+
+      position: absolute;
+      top: 10px;     
+      margin: 0;
+      left: 50%;
+      right: 50%;
+      */
+
+      letter-spacing: 1rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%) ;
+      
+
+      pointer-events: none;   /* so clicks/drag still reach the canvas */
+      user-select: none;
+    }
+    body { margin: 0; display: flex; flex-direction: column; align-items: center;
+           background: #0a0a18; color: #eee; font-family: sans-serif; }
+    h1 { margin: 0.8rem; font-size: 1.4rem; }
+    #status { margin: 0.3rem; font-size: 0.95rem; min-height: 1.4rem;
+              font-family: monospace; color: #9cf; }
+    canvas { border-radius: 30px; border: 5px solid #8a9692; background: #000; width: 30vw;
+            height: 20vh; touch-action: none; }
+    #controls { margin: 0.6rem; display: flex; gap: 1rem; flex-wrap: wrap;
+                align-items: center; font-size: 0.9rem; }
+    label.btn { padding: 0.4rem 0.9rem; background: #266; border-radius: 6px;
+                cursor: pointer; user-select: none; }
+    label.btn:hover { background: #399; }
+    input[type=file] { display: none; }
+    input[type=range] { vertical-align: middle; }
+    select, input[type=checkbox] { accent-color: #6cc; }
+    select { background: #112; color: #eee; border: 1px solid #444;
+             padding: 0.3rem; border-radius: 4px; }
+    #info { margin: 0.4rem; font-size: 0.8rem; color: #888; max-width: 620px;
+            text-align: center; line-height: 1.4; }
+  </style>
+</head>
+<body>
+  
+  <h1>WebGPU Wireframe Viewer</h1>
+  <div id="status">Initializing…</div>
+  <div id="canvas-wrap" style="position: relative;">
+    <canvas id="gpu-canvas" width="800" height="600"></canvas>
+    <div id="overlay">noogen</div>
+  </div>
+  
+  <div id="controls">
+    <label class="btn">Load .OBJ…
+      <input type="file" id="file-input" accept=".obj,.OBJ">
+    </label>
+    <label><input type="checkbox" id="auto-rotate-toggle" checked> Auto-rotate</label>
+    <select id="preset-select">
+      <option value="cube">Cube</option>
+      <option value="tetra">Tetrahedron</option>
+    </select>
+    <label><input type="checkbox" id="wireframe-toggle" checked> Wireframe</label>
+    <label>Thickness:
+      <input type="range" id="thickness-slider" min="1" max="20" step="0.5" value="3">
+      <span id="thickness-value">3</span> px
+    </label>
+    <span id="drop-zone" style="color:#888;">…or drag a .obj onto the canvas</span>
+  </div>
+  <div id="info">
+    Thick lines are rendered as camera-facing quads in screen space, so thickness
+    is measured in pixels and stays constant regardless of depth. Shared edges
+    are deduplicated for a clean wireframe.
+  </div>
+  <script>
+    window.BG_COLOR   = "#fede00";   // background
+    window.WIRE_COLOR  = "#8a9692";   // wireframe
+  </script>
+  <script src="main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+yellow c: #fede00
+slate gray: #8a9692
