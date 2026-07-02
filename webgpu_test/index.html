@@ -3,44 +3,33 @@
 <head>
   <link rel="stylesheet" type="text/css" href="../fonts/MyWebfontsKit/MyWebfontsKit.css">
   <link rel="stylesheet" type="text/css" href="../fonts/new alphabet/new_alphabet.css">
+  <link rel="stylesheet" type="text/css" href="../fonts/BodoniXT/font.css">
+	<link rel="stylesheet" type="text/css" href="../fonts/univers/stylesheet.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WebGPU Wireframe Viewer</title>
   <style>
+    @font-face {
+      font-family: 'Typo round bold';
+      src: url('../fonts/typo-round/Typo_Round_Bold_Italic_Demo.otf') format('opentype'); 
+      font-weight: normal;
+      font-style: normal;
+    }
+
     #canvas-wrap {position: relative; display: inline-block; }
     #overlay {
-      font-family: 'ProtoSans35';
-                        
-      /*left: 10px;*/
+      font-family: 'Typo round bold', Univers LT std, 'ProtoSans35';
+      font-weight: 900;
       color: #8a9692;
-      font-size: auto;
-      /*background: rgba(0, 0, 0, 0.55);*/
-      /*padding: 6px 10px;*/
+      font-size: 5vw;
       border-radius: 6px;
       display: flex;
-      /*
-      justify-content: center; 
-      align-items: center;    
-      text-align: center; 
-      margin-left: auto;
-      margin-right: auto;
-      
-
-      position: absolute;
-      top: 10px;     
-      margin: 0;
-      left: 50%;
-      right: 50%;
-      */
-
-      letter-spacing: 1rem;
+      /*letter-spacing: 1rem;*/
       position: absolute;
       top: 50%;
       left: 50%;
       margin-right: -50%;
       transform: translate(-50%, -50%) ;
-      
-
       pointer-events: none;   /* so clicks/drag still reach the canvas */
       user-select: none;
     }
@@ -49,7 +38,7 @@
     h1 { margin: 0.8rem; font-size: 1.4rem; }
     #status { margin: 0.3rem; font-size: 0.95rem; min-height: 1.4rem;
               font-family: monospace; color: #9cf; }
-    canvas { border-radius: 30px; border: 5px solid #8a9692; background: #000; width: 30vw;
+    canvas { border-radius: 100px; border: 5px solid #8a9692; background: #fede00; width: 30vw;
             height: 20vh; touch-action: none; }
     #controls { margin: 0.6rem; display: flex; gap: 1rem; flex-wrap: wrap;
                 align-items: center; font-size: 0.9rem; }
@@ -71,7 +60,7 @@
   <div id="status">Initializing…</div>
   <div id="canvas-wrap" style="position: relative;">
     <canvas id="gpu-canvas" width="800" height="600"></canvas>
-    <div id="overlay">noogen</div>
+    <div id="overlay">NOOGEN96</div>
   </div>
   
   <div id="controls">
@@ -98,6 +87,7 @@
   <script>
     window.BG_COLOR   = "#fede00";   // background
     window.WIRE_COLOR  = "#8a9692";   // wireframe
+    window.DEFAULT_MODEL  = "models/sphere_random_low.obj";
   </script>
   <script src="main.js" defer></script>
 </body>

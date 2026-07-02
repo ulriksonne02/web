@@ -21,7 +21,7 @@ function hexToRGB(hex) {
   return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
 }
 
-const BG_COLOR   = hexToRGB(window.BG_COLOR   || "#ffffff");
+const BG_COLOR   = hexToRGB(window.BG_COLOR   || "#000000");
 const WIRE_COLOR = hexToRGB(window.WIRE_COLOR || "#ffffff");
 
 // ---------------------------------------------------------------------------
@@ -54,6 +54,8 @@ const mat4 = {
   },
 
   rotateY(a){const c=Math.cos(a),s=Math.sin(a);return new Float32Array([c,0,-s,0, 0,1,0,0, s,0,c,0, 0,0,0,1]);},
+  rotateX(a){const c=Math.cos(a),s=Math.sin(a);return new Float32Array([1,0,0,0, 0,c,s,0, 0,-s,c,0, 0,0,0,1]);},
+
   translate(x,y,z){return new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, x,y,z,1]);},
   normalize(v){const l = Math.hypot(v[0],v[1],v[2]) || 1; return [v[0]/l, v[1]/l, v[2]/l];},
 
@@ -84,10 +86,13 @@ const deg = Math.PI / 180;
 const cam = {
   azimuth:   35 * deg,   // around Y
   elevation: 20 * deg,  // up/down
-  distance:  5.0,        // zoom
+  distance:  1.5,        // zoom
   roll:      0 * deg, 
   target: [0, 0, 0],
 };
+
+const AUTO_ROTATE_Y_SPEED = 0.2;   // around Y (existing)
+const AUTO_ROTATE_X_SPEED = 0.1;   // around X (new — "another direction")
 
 // ---------------------------------------------------------------------------
 // OBJ parser
@@ -398,7 +403,11 @@ async function init() {
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
   });
 
-  loadModelData(buildCubeModel(), "Cube");
+  if (window.DEFAULT_MODEL) {
+    loadOBJURL(window.DEFAULT_MODEL, window.DEFAULT_MODEL.split("/").pop());
+  } else {
+    loadModelData(buildCubeModel(), "Cube");
+  }
 
   // --- UI events ---
   fileInput.addEventListener("change", e => { const f=e.target.files[0]; if(f) loadOBJFile(f); });
@@ -459,24 +468,27 @@ async function init() {
     
     const t = (performance.now() - start) / 1000;
     const aspect = canvas.width / canvas.height;
-    const proj  = mat4.perspective(Math.PI/4, aspect, 0.1, 100);
+    const proj  = mat4.perspective(Math.PI/10, aspect, 0.1, 100);
 
-    let az = cam.azimuth, el = cam.elevation;
-    if (autoRotateToggle.checked) az += t * 0.5;
-
+    //let az = cam.azimuth, el = cam.elevation;
+    //if (autoRotateToggle.checked) az += t * AUTO_ROTATE_Y_SPEED;
+    let az = cam.azimuth, el = cam.elevation;   
     const eye = [
       cam.target[0] + cam.distance * Math.cos(el) * Math.sin(az),
       cam.target[1] + cam.distance * Math.sin(el),
       cam.target[2] + cam.distance * Math.cos(el) * Math.cos(az),
     ];
-    
-    const view  = mat4.multiply(
-      mat4.lookAt(eye, cam.target, [0, 1, 0]),
-      mat4.rotateZ(cam.roll)
-    );
+    //const eye = [0, 0, .5]; 
+    const view = mat4.lookAt(eye, cam.target, [0, 1, 0]);
 
-    const model = mat4.identity();
-    const mvp   = mat4.multiply(proj, mat4.multiply(view, model));
+    // Tumble the model on a second axis when auto-rotating
+    let model = mat4.identity();
+    if (autoRotateToggle.checked) {
+      model = mat4.multiply(mat4.rotateY(t * AUTO_ROTATE_Y_SPEED), mat4.rotateX(t * AUTO_ROTATE_X_SPEED));
+    }
+
+    const mvp = mat4.multiply(proj, mat4.multiply(view, model));
+
 
     uniformData.set(mvp, 0);
     uniformData[16] = canvas.width;
@@ -586,6 +598,23 @@ function loadModelData(model, label) {
   statusEl.textContent =
     `✅ ${label} — ${model.vertexCount/3|0} tris, ${w.edgeCount} edges, rounded joins`;
 }
+
+async function loadOBJURL(url, label) {
+  statusEl.textContent = `⏳ Loading ${label}…`;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    const model = parseOBJ(text);
+    if (!model.vertexCount) { statusEl.textContent = "❌ No geometry."; return; }
+    normalizeModel(model.positions);
+    loadModelData(model, label);
+  } catch (err) {
+    statusEl.textContent = "❌ " + err.message;
+    console.error(err);
+  }
+}
+
 
 function loadOBJFile(file) {
   statusEl.textContent = `⏳ Loading ${file.name}…`;
