@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebGPU Multi-Model/View Viewer</title>
+<style>
+  body {
+    margin: 0; display: flex; flex-direction: column; align-items: center;
+    background: #0a0a18; color: #eee; font-family: sans-serif;
+  }
+  h1 { margin: 0.8rem; font-size: 1.4rem; }
+  #status {
+    margin: 0.3rem; font-size: 0.95rem; min-height: 1.4rem;
+    font-family: monospace; color: #9cf;
+  }
+  #controls {
+    margin: 0.6rem; display: flex; gap: 1rem; flex-wrap: wrap;
+    align-items: center; font-size: 0.9rem;
+  }
+  label.btn {
+    padding: 0.4rem 0.9rem; background: #266; border-radius: 6px;
+    cursor: pointer; user-select: none;
+  }
+  label.btn:hover { background: #399; }
+  input[type="range"] { vertical-align: middle; }
+  select, input[type="checkbox"] { accent-color: #6cc; }
+  select {
+    background: #112; color: #eee; border: 1px solid #444;
+    padding: 0.3rem; border-radius: 4px;
+  }
+  .views-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+    width: 92vw;
+    max-width: 1200px;
+    margin-bottom: 1.5rem;
+  }
+  .view-port {
+    position: relative;
+    border-radius: 9999px;
+    border: 10px solid #8a9692;
+    background: #fede00;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+  }
+  .view-port canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+  }
+  .view-controls {
+    position: absolute;
+    top: 12px; left: 12px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .view-controls select {
+    pointer-events: auto;
+    background: rgba(10,10,24,0.75);
+    color: #eee;
+    border: 1px solid #666;
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-size: 0.85rem;
+  }
+  #info {
+    margin: 0.4rem; font-size: 0.8rem; color: #888;
+    max-width: 620px; text-align: center; line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+  <h1>WebGPU Multi-Model/View Viewer</h1>
+  <div id="status">Initializing…</div>
+
+  <div id="controls">
+    <label><input type="checkbox" id="wireframe-toggle" checked> Wireframe</label>
+    <label>Thickness:
+      <input type="range" id="thickness-slider" min="1" max="20" value="3">
+      <span id="thickness-value">3</span> px
+    </label>
+    <label><input type="checkbox" id="auto-rotate-toggle" checked> Auto-rotate</label>
+  </div>
+
+  <!-- data-model accepts built-ins (cube, tetra) or a .obj URL -->
+  <div class="views-grid">
+    <div class="view-port" data-model="./models/sphere.obj">
+      <!--<<div class="view-controls">
+        select class="model-select">
+          <option value="cube">Cube</option>
+          <option value="tetra">Tetra</option>
+        </select>
+      </div>-->
+      <canvas></canvas>
+    </div>
+    <div class="view-port" data-model="./models/sphere_random_low.obj">
+      <!--<<div class="view-controls">
+        <select class="model-select">
+          <option value="cube">Cube</option>
+          <option value="tetra">Tetrahedron</option>
+        </select>
+      </div>-->
+      <canvas></canvas>
+    </div>
+  </div>
+
+  <p id="info">
+    Set <code>data-model</code> on any <code>.view-port</code> to choose its start-up shape
+    (<code>cube</code>, <code>tetra</code>, or a path to a .obj file).
+    Drag-and-drop a .obj onto a canvas to load it for that view only.
+  </p>
+
+  <script src="main2.js"></script>
+</body>
+</html>
