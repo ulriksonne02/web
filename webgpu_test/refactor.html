@@ -40,14 +40,20 @@
     color: #8a9692;
     display: flex;
     height: 80vh;
-    width: 100%;                 /* stretches to the right edge of its container */
+                    /* stretches to the right edge of its container */
     background: #fede00;
     border:  10px solid #8a9692;
-    border-right: 0px;
-    
+    border-right: 100px;
+    margin-left: 10vw;
+    margin-top: 5vh;
+    margin-bottom: auto;
     
     border-radius: 9999px 0 0 9999px;  /* fully round left, flat right */
     box-sizing: border-box;      /* keeps the border inside the 80vh/100% box */
+    
+    flex-direction: row;   /* already default, but explicit is clearer */
+    align-items: top;
+    overflow: hidden;
   }
   .views-grid {
     display: flex;
@@ -69,6 +75,10 @@
 
   .page {
     display: block;
+    flex: 1 1 auto;
+    min-width: 0;          /* crucial: lets flex item shrink with long words/letter-spacing */
+    padding: 0 5vw 0 2vw;  /* breathe on the right, small gap from canvas on the left */
+    word-break: break-word;
   }
 
   .views-grid .view-port{
@@ -83,6 +93,9 @@
   #big-view {
     height: 100%;
     border-radius: 9999px;
+    flex: 0 0 auto;
+    height: 100%;
+    aspect-ratio: 1 / 1;
   }
   .rounded-bar .view-port {
 
@@ -117,9 +130,16 @@
 <body>
   <!--<h1>WebGPU Multi-Model/View Viewer</h1>
   <div id="status">Initializing…</div>-->
+  <div class="view-port" 
+        data-model="./models/sphere_random_low.obj"
+        data-bg="#e3e6e0"
+        data-wire="#8a9692"
+        data-fov="30"
+        data-distance="2.0"
+        data-thickness="2">
+      <canvas></canvas>
+    </div>
   <div class="rounded-bar">
-    
-    
     <div id="big-view" class="view-port" 
         data-model="./models/sphere.obj"
         data-bg="#fede00"
@@ -137,10 +157,12 @@
     </div>
     <div class="page">
       <h1>noogen</h1>
-      <h2>welcome to the future of web design </h2>
-      <p>
-        
-      </p>
+      <h2>
+        welcome to the future of web design <br>
+      </h2>
+      <h2>
+        this webpage is rendering real-time with pure webgpu, click and drag to rotate, scroll to zoom
+      </h2>
     </div>  
   </div>
 
