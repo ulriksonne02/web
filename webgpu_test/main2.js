@@ -1,26 +1,26 @@
 // ---------------------------------------------------------------------------
-// Constants & helpers
+// Hex → RGB helper (same as original)  <ref: index=12621046 firstWord=1 lastWord=20/>
+// ---------------------------------------------------------------------------
+function hexToRGB(hex) {
+  const n = parseInt(hex.replace('#', ''), 16);
+  return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
+}
+
+// Global fallback defaults (editable from a script tag before main.js loads)
+const DEFAULT_BG   = (typeof window !== 'undefined' && window.BG_COLOR)   || '#fff';
+const DEFAULT_WIRE = (typeof window !== 'undefined' && window.WIRE_COLOR) || '#000';
+
+// ---------------------------------------------------------------------------
+// Tiny mat4 library (unchanged)
 // ---------------------------------------------------------------------------
 const deg = Math.PI / 180;
 const AUTO_ROTATE_Y_SPEED = 0.2;
 const AUTO_ROTATE_X_SPEED = 0.1;
 
-function hexToRGB(hex) {
-  const n = parseInt(hex.replace('#', ''), 16);
-  return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
-}
-const BG_COLOR   = hexToRGB('#fede00');
-const WIRE_COLOR = hexToRGB('#8a9692');
-
-// ---------------------------------------------------------------------------
-// mat4 helpers (column-major)   <ref: index=12621057 firstWord=0 lastWord=20/>
-// ---------------------------------------------------------------------------
 const mat4 = {
   rotateY(a){const c=Math.cos(a),s=Math.sin(a);return new Float32Array([c,0,-s,0, 0,1,0,0, s,0,c,0, 0,0,0,1]);},
   rotateX(a){const c=Math.cos(a),s=Math.sin(a);return new Float32Array([1,0,0,0, 0,c,s,0, 0,-s,c,0, 0,0,0,1]);},
-  rotateZ(a){const c=Math.cos(a),s=Math.sin(a);return new Float32Array([c,s,0,0, -s,c,0,0, 0,0,1,0, 0,0,0,1]);},
   identity() { return new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]); },
-  translate(x,y,z){return new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, x,y,z,1]);},
   normalize(v){const l = Math.hypot(v[0],v[1],v[2]) || 1; return [v[0]/l, v[1]/l, v[2]/l];},
 
   perspective(fovY, aspect, near, far) {
@@ -133,7 +133,7 @@ const diskShader = /* wgsl */ `
 `;
 
 // ---------------------------------------------------------------------------
-// OBJ parser               <ref: index=12621070 firstWord=0 lastWord=12/>
+// OBJ parser & wireframe builder (unchanged from previous iterations)
 // ---------------------------------------------------------------------------
 function parseOBJ(text) {
   const vPos = [], vNorm = [];
@@ -179,9 +179,6 @@ function normalizeModel(positions) {
   for (let i=0;i<positions.length;i+=3) for (let k=0;k<3;k++) positions[i+k]=(positions[i+k]-c[k])*s;
 }
 
-// ---------------------------------------------------------------------------
-// Built-in presets        <ref: index=12621056 firstWord=0 lastWord=7/>
-// ---------------------------------------------------------------------------
 function buildCubeModel() {
   const p = new Float32Array([
      1,-1,-1, 1,1,-1, 1,1,1, 1,-1,-1, 1,1,1, 1,-1,1,
@@ -213,9 +210,6 @@ function buildTetrahedronModel() {
   return {positions:new Float32Array(pos), colors:new Float32Array(col), vertexCount:12};
 }
 
-// ---------------------------------------------------------------------------
-// Wireframe geometry builder   <ref: index=12621061 firstWord=0 lastWord=15/>
-// ---------------------------------------------------------------------------
 function trianglesToWireframe(positions, colors, vertexCount) {
   const edgeSet = new Set();
   const edges = [];
@@ -284,7 +278,7 @@ function trianglesToWireframe(positions, colors, vertexCount) {
 }
 
 // ---------------------------------------------------------------------------
-// Renderer — device, pipelines, and a Map of uploaded models
+// Renderer
 // ---------------------------------------------------------------------------
 class Renderer {
   constructor() {
@@ -293,7 +287,7 @@ class Renderer {
     this.solidPipeline = null;
     this.edgePipeline = null;
     this.diskPipeline = null;
-    this.models = new Map();   // id -> GPU model
+    this.models = new Map();
     this.startTime = performance.now();
   }
 
@@ -304,11 +298,7 @@ class Renderer {
     this.device = await adapter.requestDevice();
     this.format = navigator.gpu.getPreferredCanvasFormat();
 
-    const depthStencil = {
-      format: 'depth24plus',
-      depthWriteEnabled: true,
-      depthCompare: 'less-equal',
-    };
+    const depthStencil = { format: 'depth24plus', depthWriteEnabled: true, depthCompare: 'less-equal' };
 
     const solidMod = this.device.createShaderModule({ code: solidShader });
     this.solidPipeline = this.device.createRenderPipeline({
@@ -360,7 +350,7 @@ class Renderer {
     });
   }
 
-  loadModelData(id, model, label) {   // <ref: index=12621093 firstWord=0 lastWord=8/>
+  loadModelData(id, model, label) {
     const device = this.device;
     const solidData = new Float32Array(model.vertexCount * 6);
     for (let i=0;i<model.vertexCount;i++){
@@ -371,33 +361,18 @@ class Renderer {
       solidData[i*6+4]=model.colors[i*3+1];
       solidData[i*6+5]=model.colors[i*3+2];
     }
-    const solidVB = device.createBuffer({
-      size: solidData.byteLength,
-      usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
-    });
+    const solidVB = device.createBuffer({ size: solidData.byteLength, usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST });
     device.queue.writeBuffer(solidVB, 0, solidData);
 
     const w = trianglesToWireframe(model.positions, model.colors, model.vertexCount);
-    const edgeVB = device.createBuffer({
-      size: w.edgeVerts.byteLength,
-      usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
-    });
+    const edgeVB = device.createBuffer({ size: w.edgeVerts.byteLength, usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST });
     device.queue.writeBuffer(edgeVB, 0, w.edgeVerts);
-    const edgeIB = device.createBuffer({
-      size: w.edgeIdx.byteLength,
-      usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST,
-    });
+    const edgeIB = device.createBuffer({ size: w.edgeIdx.byteLength, usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST });
     device.queue.writeBuffer(edgeIB, 0, w.edgeIdx);
 
-    const diskVB = device.createBuffer({
-      size: w.diskVerts.byteLength,
-      usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
-    });
+    const diskVB = device.createBuffer({ size: w.diskVerts.byteLength, usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST });
     device.queue.writeBuffer(diskVB, 0, w.diskVerts);
-    const diskIB = device.createBuffer({
-      size: w.diskIdx.byteLength,
-      usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST,
-    });
+    const diskIB = device.createBuffer({ size: w.diskIdx.byteLength, usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST });
     device.queue.writeBuffer(diskIB, 0, w.diskIdx);
 
     this.models.set(id, {
@@ -410,27 +385,41 @@ class Renderer {
 }
 
 // ---------------------------------------------------------------------------
-// View — per-canvas camera, depth texture, and a reference to which model it draws
+// View — now owns bgColor & wireColor
 // ---------------------------------------------------------------------------
 class View {
   constructor(renderer, canvas, options = {}) {
     this.renderer = renderer;
     this.canvas = canvas;
     this.context = canvas.getContext('webgpu');
-    this.context.configure({
-      device: renderer.device,
-      format: renderer.format,
-      alphaMode: 'premultiplied',
-    });
+    this.context.configure({ device: renderer.device, format: renderer.format, alphaMode: 'premultiplied' });
+    
+        this.modelId = options.modelId || null;
 
-    this.modelId = options.modelId || null;
+    const bgHex   = options.bg  || DEFAULT_BG;
+    const wireHex = options.wire || DEFAULT_WIRE;
+    this.bgColor  = hexToRGB(bgHex);
+    this.wireColor = hexToRGB(wireHex);
+
+        // Safe numeric fallback: missing / empty / non-numeric attribute → default
+    const toNum = (v, d) => { const n = parseFloat(v); return Number.isFinite(n) ? n : d; };
+
+    this.fovDeg    = toNum(options.fov, 18);
+    this.fov       = this.fovDeg * deg;
+    this.thickness = toNum(options.thickness, 3);
 
     this.camera = {
-      azimuth: 35*deg, elevation: 20*deg, distance: 1.5,
-      target: [0,0,0],
+      azimuth:   35 * deg,
+      elevation: 20 * deg,
+      distance:  toNum(options.distance, 1.5),
+      target:    [0, 0, 0],
     };
-    this.dragging = false; this.lastX = 0; this.lastY = 0;
+
+    this.dragging = false;
+    this.lastX = 0;
+    this.lastY = 0;
     this.autoRotate = options.autoRotate ?? true;
+
 
     this.depthTexture = null;
     this.uniformBuffer = renderer.device.createBuffer({
@@ -465,9 +454,7 @@ class View {
       this.canvas.height = h;
       if (this.depthTexture) this.depthTexture.destroy();
       this.depthTexture = this.renderer.device.createTexture({
-        size: [w, h],
-        format: 'depth24plus',
-        usage: GPUTextureUsage.RENDER_ATTACHMENT,
+        size: [w, h], format: 'depth24plus', usage: GPUTextureUsage.RENDER_ATTACHMENT,
       });
     }
   }
@@ -475,10 +462,8 @@ class View {
   setupEvents() {
     const c = this.canvas;
     c.addEventListener('pointerdown', (e) => {
-      this.dragging = true;
-      this.lastX = e.clientX; this.lastY = e.clientY;
-      c.setPointerCapture(e.pointerId);
-      this.autoRotate = true;
+      this.dragging = true; this.lastX = e.clientX; this.lastY = e.clientY;
+      c.setPointerCapture(e.pointerId); this.autoRotate = true;
     });
     c.addEventListener('pointermove', (e) => {
       if (!this.dragging) return;
@@ -501,7 +486,8 @@ class View {
     const t = (performance.now() - this.renderer.startTime) / 1000;
     const canvas = this.canvas;
     const aspect = canvas.width / canvas.height;
-    const proj = mat4.perspective(Math.PI/10, aspect, 0.1, 100);
+    //const proj = mat4.perspective(Math.PI/10, aspect, 0.1, 100);
+    const proj = mat4.perspective(this.fov, aspect, 0.1, 100);
 
     const az = this.camera.azimuth, el = this.camera.elevation;
     const eye = [
@@ -521,10 +507,13 @@ class View {
     u.set(mvp, 0);
     u[16] = canvas.width;
     u[17] = canvas.height;
-    u[18] = parseFloat(document.getElementById('thickness-slider').value);
-    u[20] = WIRE_COLOR[0];
-    u[21] = WIRE_COLOR[1];
-    u[22] = WIRE_COLOR[2];
+    //u[18] = parseFloat(document.getElementById('thickness-slider').value);
+    u[18] = this.thickness;
+    // [19] padding
+    // Wireframe colour — per-view, written into the same uniform layout as before
+    u[20] = this.wireColor[0];
+    u[21] = this.wireColor[1];
+    u[22] = this.wireColor[2];
     this.renderer.device.queue.writeBuffer(this.uniformBuffer, 0, u);
   }
 
@@ -541,7 +530,7 @@ class View {
     const pass = encoder.beginRenderPass({
       colorAttachments: [{
         view: this.context.getCurrentTexture().createView(),
-        clearValue: { r: BG_COLOR[0], g: BG_COLOR[1], b: BG_COLOR[2], a: 1 },
+        clearValue: { r: this.bgColor[0], g: this.bgColor[1], b: this.bgColor[2], a: 1 },
         loadOp: 'clear', storeOp: 'store',
       }],
       depthStencilAttachment: {
@@ -576,29 +565,49 @@ class View {
 }
 
 // ---------------------------------------------------------------------------
-// Global UI & bootstrap
+// Bootstrap
 // ---------------------------------------------------------------------------
-const statusEl = document.getElementById('status');
+const statusEl = document.getElementById("status") || { textContent: "" };
 
 function addModelOption(id, label) {
   document.querySelectorAll('.model-select').forEach(sel => {
     if ([...sel.options].some(o => o.value === id)) return;
     const opt = document.createElement('option');
-    opt.value = id;
-    opt.textContent = label;
+    opt.value = id; opt.textContent = label;
     sel.appendChild(opt);
   });
 }
 
 async function main2() {
+
+  // Guard against a missing #controls panel in HTML
+  (function stubControlsIfMissing() {
+    if (document.getElementById('controls')) return;
+    const mk = (id, tag, props = {}) => {
+      if (document.getElementById(id)) return;
+      const el = Object.assign(document.createElement(tag), { id, ...props });
+      el.style.display = 'none';
+      document.body.appendChild(el);
+    };
+    mk('wireframe-toggle',   'input', { type: 'checkbox', checked: true });
+    mk('thickness-slider',  'input', { type: 'range', value: 3, min: 1, max: 20 });
+    mk('thickness-value',   'span',  { textContent: '3' });
+    mk('auto-rotate-toggle','input', { type: 'checkbox', checked: true });
+  })();
+
+
   const renderer = new Renderer();
   try { await renderer.init(); statusEl.textContent = 'Ready.'; }
   catch (err) { statusEl.textContent = '❌ ' + err.message; console.error(err); return; }
 
-  const views = [];           // { view, wrap, sel }
-  const pendingLoads = new Map(); // url -> Promise<id|null>
+  renderer.loadModelData('cube',  buildCubeModel(),        'Cube');
+  renderer.loadModelData('tetra', buildTetrahedronModel(), 'Tetrahedron');
+  addModelOption('cube',  'Cube');
+  addModelOption('tetra', 'Tetrahedron');
 
-  // --- helpers -----------------------------------------------------------
+  const views = [];
+  const pendingLoads = new Map();
+
   async function ensureModelLoaded(url, id = url, label = url.split('/').pop()) {
     if (renderer.models.has(id)) return id;
     if (pendingLoads.has(id)) return pendingLoads.get(id);
@@ -616,43 +625,37 @@ async function main2() {
         statusEl.textContent = `✅ ${label}`;
         return id;
       } catch (err) {
-        statusEl.textContent = `❌ ${err.message}`;
-        console.error(err);
-        return null;
-      } finally {
-        pendingLoads.delete(id);
-      }
+        statusEl.textContent = `❌ ${err.message}`; console.error(err); return null;
+      } finally { pendingLoads.delete(id); }
     })();
     pendingLoads.set(id, promise);
     return promise;
   }
 
-  // --- register built-ins ------------------------------------------------
-  renderer.loadModelData('cube',  buildCubeModel(),        'Cube');
-  renderer.loadModelData('tetra', buildTetrahedronModel(), 'Tetrahedron');
-  addModelOption('cube',  'Cube');
-  addModelOption('tetra', 'Tetrahedron');
-
-  // --- create views from DOM ---------------------------------------------
   document.querySelectorAll('.view-port').forEach(wrap => {
     const canvas = wrap.querySelector('canvas');
     const sel    = wrap.querySelector('.model-select');
-    const view   = new View(renderer, canvas, { autoRotate: true });
+
+    const view = new View(renderer, canvas, {
+      modelId: wrap.dataset.model || 'cube',
+      autoRotate: true,
+      bg:  wrap.dataset.bg,
+      wire: wrap.dataset.wire,
+      
+      fov:        wrap.dataset.fov,
+      distance:   wrap.dataset.distance,
+      thickness:  wrap.dataset.thickness,
+    });
 
     if (sel) sel.addEventListener('change', () => view.setModel(sel.value));
 
-    // drag-and-drop onto this specific canvas
+    // Drag-and-drop (per view)
     const c = view.canvas;
-    c.addEventListener('dragover', e => {
-      e.preventDefault();
-      wrap.style.outline = '4px dashed #9cf';
-    });
+    c.addEventListener('dragover', e => { e.preventDefault(); wrap.style.outline = '4px dashed #9cf'; });
     c.addEventListener('dragleave', () => { wrap.style.outline = 'none'; });
     c.addEventListener('drop', e => {
-      e.preventDefault();
-      wrap.style.outline = 'none';
-      const f = e.dataTransfer.files[0];
-      if (!f) return;
+      e.preventDefault(); wrap.style.outline = 'none';
+      const f = e.dataTransfer.files[0]; if (!f) return;
       const id = 'file-' + Math.random().toString(36).slice(2);
       statusEl.textContent = `⏳ Loading ${f.name}…`;
       const reader = new FileReader();
@@ -666,10 +669,7 @@ async function main2() {
           view.setModel(id);
           if (sel) sel.value = id;
           statusEl.textContent = `✅ ${f.name}`;
-        } catch (err) {
-          statusEl.textContent = '❌ ' + err.message;
-          console.error(err);
-        }
+        } catch (err) { statusEl.textContent = '❌ ' + err.message; console.error(err); }
       };
       reader.readAsText(f);
     });
@@ -677,47 +677,32 @@ async function main2() {
     views.push({ view, wrap, sel });
   });
 
-  // --- resolve per-view defaults (data-model) ----------------------------
+  // Resolve asynchronous defaults (data-model="url.obj")
   for (const { view, wrap, sel } of views) {
     const dm = wrap.dataset.model || 'cube';
-    if (dm === 'cube' || dm === 'tetra') {
+    if (dm !== 'cube' && dm !== 'tetra') {
+      ensureModelLoaded(dm).then(id => {
+        if (id) { view.setModel(id); if (sel) sel.value = id; }
+        else { view.setModel('cube'); if (sel) sel.value = 'cube'; }
+      });
+    } else {
       view.setModel(dm);
       if (sel) sel.value = dm;
-    } else {
-      // treat as a relative URL to an OBJ
-      ensureModelLoaded(dm).then(id => {
-        if (id) {
-          view.setModel(id);
-          if (sel) sel.value = id;
-        } else {
-          view.setModel('cube');
-          if (sel) sel.value = 'cube';
-        }
-      });
     }
   }
 
-  // --- global controls ---------------------------------------------------
+  // Global controls
   const wireframeToggle  = document.getElementById('wireframe-toggle');
   const thicknessSlider  = document.getElementById('thickness-slider');
   const thicknessValue   = document.getElementById('thickness-value');
   const autoRotateToggle = document.getElementById('auto-rotate-toggle');
 
-  thicknessSlider.addEventListener('input', () => {
-    thicknessValue.textContent = thicknessSlider.value;
-  });
-  autoRotateToggle.addEventListener('change', () => {
-    views.forEach(v => v.view.autoRotate = autoRotateToggle.checked);
-  });
+  thicknessSlider.addEventListener('input', () => { thicknessValue.textContent = thicknessSlider.value; });
+  autoRotateToggle.addEventListener('change', () => views.forEach(v => v.view.autoRotate = autoRotateToggle.checked));
   views.forEach(v => v.view.autoRotate = autoRotateToggle.checked);
-
   window.addEventListener('resize', () => views.forEach(v => v.view.resize()));
 
-  // --- render loop -------------------------------------------------------
-  function frame() {
-    views.forEach(v => v.view.render());
-    requestAnimationFrame(frame);
-  }
+  function frame() { views.forEach(v => v.view.render()); requestAnimationFrame(frame); }
   frame();
 }
 

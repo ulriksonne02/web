@@ -1,2 +1,5 @@
 yellow c: #fede00
 slate gray: #8a9692
+black c: #2d2926
+#e3e6e0
+#333a3c

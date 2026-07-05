@@ -3,11 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WebGPU Multi-Model/View Viewer</title>
+<title>WebGPU Test</title>
 <style>
+  @font-face {
+      font-family: 'Typo round bold';
+      src: url('../fonts/typo-round/Typo_Round_Bold_Italic_Demo.otf') format('opentype'); 
+      font-weight: normal;
+      font-style: normal;
+  }
   body {
     margin: 0; display: flex; flex-direction: column; align-items: center;
-    background: #0a0a18; color: #eee; font-family: sans-serif;
+    background: #fff; color: #000; font-family: sans-serif;
   }
   h1 { margin: 0.8rem; font-size: 1.4rem; }
   #status {
@@ -29,21 +35,57 @@
     background: #112; color: #eee; border: 1px solid #444;
     padding: 0.3rem; border-radius: 4px;
   }
+  .rounded-bar {
+    font-family: 'Typo round bold', Univers LT std, 'ProtoSans35';
+    color: #8a9692;
+    display: flex;
+    height: 80vh;
+    width: 100%;                 /* stretches to the right edge of its container */
+    background: #fede00;
+    border:  10px solid #8a9692;
+    border-right: 0px;
+    
+    
+    border-radius: 9999px 0 0 9999px;  /* fully round left, flat right */
+    box-sizing: border-box;      /* keeps the border inside the 80vh/100% box */
+  }
   .views-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1rem;
-    width: 92vw;
-    max-width: 1200px;
+    display: flex;
+    /*grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));*/
+    gap: 10rem;
+    height: 80vh;
+    /*max-width: 1200px;*/
     margin-bottom: 1.5rem;
+  }
+  
+  .rounded-bar h1 {
+    font-size: 10vh;
+    letter-spacing: 3rem;
+  }
+  
+  .rounded-bar h2 {
+    font-size: 4vh;
+  }
+
+  .page {
+    display: block;
+  }
+
+  .views-grid .view-port{
+    border: 10px solid #8a9692;
+    background: #fede00;
   }
   .view-port {
     position: relative;
-    border-radius: 9999px;
-    border: 10px solid #8a9692;
-    background: #fede00;
     overflow: hidden;
     aspect-ratio: 1 / 1;
+  }
+  #big-view {
+    height: 100%;
+    border-radius: 9999px;
+  }
+  .rounded-bar .view-port {
+
   }
   .view-port canvas {
     width: 100%;
@@ -73,21 +115,18 @@
 </style>
 </head>
 <body>
-  <h1>WebGPU Multi-Model/View Viewer</h1>
-  <div id="status">Initializing…</div>
-
-  <div id="controls">
-    <label><input type="checkbox" id="wireframe-toggle" checked> Wireframe</label>
-    <label>Thickness:
-      <input type="range" id="thickness-slider" min="1" max="20" value="3">
-      <span id="thickness-value">3</span> px
-    </label>
-    <label><input type="checkbox" id="auto-rotate-toggle" checked> Auto-rotate</label>
-  </div>
-
-  <!-- data-model accepts built-ins (cube, tetra) or a .obj URL -->
-  <div class="views-grid">
-    <div class="view-port" data-model="./models/sphere.obj">
+  <!--<h1>WebGPU Multi-Model/View Viewer</h1>
+  <div id="status">Initializing…</div>-->
+  <div class="rounded-bar">
+    
+    
+    <div id="big-view" class="view-port" 
+        data-model="./models/sphere.obj"
+        data-bg="#fede00"
+        data-wire="#8a9692"
+        data-fov="65"
+        data-distance="2.0"
+        data-thickness="5">
       <!--<<div class="view-controls">
         select class="model-select">
           <option value="cube">Cube</option>
@@ -96,22 +135,24 @@
       </div>-->
       <canvas></canvas>
     </div>
-    <div class="view-port" data-model="./models/sphere_random_low.obj">
-      <!--<<div class="view-controls">
-        <select class="model-select">
-          <option value="cube">Cube</option>
-          <option value="tetra">Tetrahedron</option>
-        </select>
-      </div>-->
-      <canvas></canvas>
-    </div>
+    <div class="page">
+      <h1>noogen</h1>
+      <h2>welcome to the future of web design </h2>
+      <p>
+        
+      </p>
+    </div>  
   </div>
 
-  <p id="info">
+  
+
+
+
+  <!--<p id="info">
     Set <code>data-model</code> on any <code>.view-port</code> to choose its start-up shape
     (<code>cube</code>, <code>tetra</code>, or a path to a .obj file).
     Drag-and-drop a .obj onto a canvas to load it for that view only.
-  </p>
+  </p>-->
 
   <script src="main2.js"></script>
 </body>
