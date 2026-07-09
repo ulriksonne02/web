@@ -5,12 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WebGPU Test</title>
 <style>
+
   @font-face {
-      font-family: 'Typo round bold';
-      src: url('../fonts/typo-round/Typo_Round_Bold_Italic_Demo.otf') format('opentype'); 
+      font-family: 'Monoround';
+      src: url('../fonts/monoround/Monoround.otf') format('opentype'); 
       font-weight: normal;
       font-style: normal;
   }
+
+  @font-face {
+      font-family: 'FZeroGX';
+      src: url('../fonts/f_zero_gx_menu/Venue Font/FZGXVenueFont-Oblique.otf') format('opentype'); 
+      font-weight: normal;
+      font-style: normal;
+  }
+  
+  .stage {
+    position: relative;
+    width: 100%;
+    min-height: 80vh;
+    height: 100vh;
+    overflow: hidden;   /* optional: clips anything that bleeds past the stage */
+  }
+  
+  .stage > .rounded-bar {
+    position: relative;
+    z-index: 1;
+  } 
+
+  .bg-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    aspect-ratio: unset;
+
+    border: none;
+    border-radius: 0;
+    z-index: 0;
+  }
+  
+  .bg-view canvas {
+    width: 100%;
+    height: 100%;
+  }
+
   body {
     margin: 0; display: flex; flex-direction: column; align-items: center;
     background: #fff; color: #000; font-family: sans-serif;
@@ -36,7 +78,10 @@
     padding: 0.3rem; border-radius: 4px;
   }
   .rounded-bar {
-    font-family: 'Typo round bold', Univers LT std, 'ProtoSans35';
+    position: relative;
+    z-index: 1;
+    font-family: 'FZeroGX', Univers LT std, 'ProtoSans35';
+    
     color: #8a9692;
     display: flex;
     height: 80vh;
@@ -56,6 +101,8 @@
     overflow: hidden;
   }
   .views-grid {
+    position: relative;   /* establish a positioned layer */
+    z-index: 2;           /* above .bg-view */
     display: flex;
     /*grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));*/
     gap: 10rem;
@@ -100,6 +147,7 @@
   .rounded-bar .view-port {
 
   }
+
   .view-port canvas {
     width: 100%;
     height: 100%;
@@ -130,41 +178,52 @@
 <body>
   <!--<h1>WebGPU Multi-Model/View Viewer</h1>
   <div id="status">Initializing…</div>-->
-  <div class="view-port" 
-        data-model="./models/sphere_random_low.obj"
-        data-bg="#e3e6e0"
-        data-wire="#8a9692"
-        data-fov="30"
-        data-distance="2.0"
-        data-thickness="2">
-      <canvas></canvas>
+  
+    
+    <div class="rounded-bar">
+      <div id="big-view" class="view-port" 
+          data-model="./models/sphere.obj"
+          data-bg="#fede00"
+          data-wire="#8a9692"
+          data-fov="30"
+          data-distance="4.5"
+          data-thickness="5">
+        <!--<<div class="view-controls">
+          select class="model-select">
+            <option value="cube">Cube</option>
+            <option value="tetra">Tetra</option>
+          </select>
+        </div>-->
+        <canvas></canvas>
+      </div>
+      <div class="page">
+        <h1>noogen</h1>
+        <h2>
+          welcome to the future of web design <br>
+        </h2>
+        <h2>
+          this webpage is rendering in real-time with pure webgpu, click and drag to rotate, scroll to zoom
+        </h2>
+        <div class="views-grid">
+
+        </div>
+        <div class="view-port" 
+          data-model="cube"
+          data-bg="#fede00"
+          data-wire="#8a9692"
+          data-fov="10"
+          data-distance="10.0"
+          data-thickness="5">
+        <!--<<div class="view-controls">
+          select class="model-select">
+            <option value="cube">Cube</option>
+            <option value="tetra">Tetra</option>
+          </select>
+        </div>-->
+        <canvas></canvas>
+      </div>
+      </div>  
     </div>
-  <div class="rounded-bar">
-    <div id="big-view" class="view-port" 
-        data-model="./models/sphere.obj"
-        data-bg="#fede00"
-        data-wire="#8a9692"
-        data-fov="65"
-        data-distance="2.0"
-        data-thickness="5">
-      <!--<<div class="view-controls">
-        select class="model-select">
-          <option value="cube">Cube</option>
-          <option value="tetra">Tetra</option>
-        </select>
-      </div>-->
-      <canvas></canvas>
-    </div>
-    <div class="page">
-      <h1>noogen</h1>
-      <h2>
-        welcome to the future of web design <br>
-      </h2>
-      <h2>
-        this webpage is rendering real-time with pure webgpu, click and drag to rotate, scroll to zoom
-      </h2>
-    </div>  
-  </div>
 
   
 
