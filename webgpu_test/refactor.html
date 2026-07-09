@@ -57,7 +57,7 @@
     margin: 0; display: flex; flex-direction: column; align-items: center;
     background: #fff; color: #000; font-family: sans-serif;
   }
-  h1 { margin: 0.8rem; font-size: 1.4rem; }
+  h1 { margin-top: 1.8rem; font-size: 1.4rem; }
   #status {
     margin: 0.3rem; font-size: 0.95rem; min-height: 1.4rem;
     font-family: monospace; color: #9cf;
@@ -80,8 +80,8 @@
   .rounded-bar {
     position: relative;
     z-index: 1;
-    font-family: 'FZeroGX', Univers LT std, 'ProtoSans35';
-    
+    font-family: 'Monoround', Univers LT std, 'ProtoSans35';
+    font-style: italic;
     color: #8a9692;
     display: flex;
     height: 80vh;
@@ -102,18 +102,17 @@
   }
   .views-grid {
     position: relative;   /* establish a positioned layer */
-    z-index: 2;           /* above .bg-view */
+    z-index: 3;           /* above .bg-view */
     display: flex;
     /*grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));*/
-    gap: 10rem;
-    height: 80vh;
-    /*max-width: 1200px;*/
+    border-radius: 9999px;
+    border: 0px solid;
     margin-bottom: 1.5rem;
   }
   
   .rounded-bar h1 {
     font-size: 10vh;
-    letter-spacing: 3rem;
+    letter-spacing: 1rem;
   }
   
   .rounded-bar h2 {
@@ -129,10 +128,9 @@
   }
 
   .views-grid .view-port{
-    border: 10px solid #8a9692;
-    background: #fede00;
   }
   .view-port {
+    z-index: 2;
     position: relative;
     overflow: hidden;
     aspect-ratio: 1 / 1;
@@ -182,18 +180,18 @@
     
     <div class="rounded-bar">
       <div id="big-view" class="view-port" 
-          data-model="./models/sphere.obj"
+          data-model="./models/sphere_low.obj"
           data-bg="#fede00"
           data-wire="#8a9692"
           data-fov="30"
           data-distance="4.5"
-          data-thickness="5">
-        <!--<<div class="view-controls">
-          select class="model-select">
-            <option value="cube">Cube</option>
-            <option value="tetra">Tetra</option>
-          </select>
-        </div>-->
+          data-thickness="2">
+          <!--<<div class="view-controls">
+            select class="model-select">
+              <option value="cube">Cube</option>
+              <option value="tetra">Tetra</option>
+            </select>
+          </div>-->
         <canvas></canvas>
       </div>
       <div class="page">
@@ -202,27 +200,45 @@
           welcome to the future of web design <br>
         </h2>
         <h2>
-          this webpage is rendering in real-time with pure webgpu, click and drag to rotate, scroll to zoom
+          this webpage is rendering in real-time with pure webgpu, click and drag to rotate, scroll to zoom.
         </h2>
         <div class="views-grid">
-
+          <div class="view-port" 
+            data-model="cube"
+            data-bg="#fede00"
+            data-wire="#8a9692"
+            data-fov="10"
+            data-distance="20.0"
+            data-thickness="2">
+            <!--<<div class="view-controls">
+              select class="model-select">
+                <option value="cube">Cube</option>
+                <option value="tetra">Tetra</option>
+              </select>
+            </div>-->
+            <canvas></canvas>
+          </div>
+          <div class="view-port" 
+            data-model="tetra"
+            data-bg="#fede00"
+            data-wire="#8a9692"
+            data-fov="10"
+            data-distance="20.0"
+            data-thickness="2">
+            <!--<<div class="view-controls">
+              select class="model-select">
+                <option value="cube">Cube</option>
+                <option value="tetra">Tetra</option>
+              </select>
+            </div>-->
+            <canvas></canvas>
+          </div>
         </div>
-        <div class="view-port" 
-          data-model="cube"
-          data-bg="#fede00"
-          data-wire="#8a9692"
-          data-fov="10"
-          data-distance="10.0"
-          data-thickness="5">
-        <!--<<div class="view-controls">
-          select class="model-select">
-            <option value="cube">Cube</option>
-            <option value="tetra">Tetra</option>
-          </select>
-        </div>-->
-        <canvas></canvas>
       </div>
-      </div>  
+      <audio controls>
+        <source src="./audio/deep_house_take5.ogg" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
     </div>
 
   
