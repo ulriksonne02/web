@@ -106,8 +106,8 @@
     display: flex;
     /*grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));*/
     border-radius: 9999px;
-    border: 0px solid;
-    margin-bottom: 1.5rem;
+    border:   0px solid;
+    /*margin-bottom: 1.5rem;*/
   }
   
   .rounded-bar h1 {
@@ -116,7 +116,7 @@
   }
   
   .rounded-bar h2 {
-    font-size: 4vh;
+    font-size: 3vh;
   }
 
   .page {
@@ -138,12 +138,12 @@
     position: relative;
     overflow: hidden;
     aspect-ratio: 1 / 1;
+    flex: 0 0 auto;
   }
   #big-view {
     height: 100%;
     border-radius: 9999px;
     flex: 0 0 auto;
-    height: 100%;
     aspect-ratio: 1 / 1;
   }
   .rounded-bar .view-port {
@@ -189,7 +189,7 @@
           data-wire="#8a9692"
           data-fov="30"
           data-distance="4.5"
-          data-thickness="2">
+          data-thickness="5">
           <!--<<div class="view-controls">
             select class="model-select">
               <option value="cube">Cube</option>
@@ -199,7 +199,7 @@
         <canvas></canvas>
       </div>
       <div class="page">
-        <h1>noogen </h1> 
+        <h1>noogen</h1> 
         <audio controls>
           <source src="./audio/deep_house_take5.ogg" type="audio/mpeg">
           Your browser does not support the audio element.
@@ -218,7 +218,7 @@
             data-wire="#8a9692"
             data-fov="10"
             data-distance="20.0"
-            data-thickness="2">
+            data-thickness="5">
             <!--<<div class="view-controls">
               select class="model-select">
                 <option value="cube">Cube</option>
@@ -233,7 +233,7 @@
             data-wire="#8a9692"
             data-fov="10"
             data-distance="20.0"
-            data-thickness="2">
+            data-thickness="5">
             <!--<<div class="view-controls">
               select class="model-select">
                 <option value="cube">Cube</option>
